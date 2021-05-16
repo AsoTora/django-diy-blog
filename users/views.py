@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import *
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 
 
 def register(request):
@@ -11,6 +12,10 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
+            new_user = authenticate(username=form.cleaned_data['username'],
+                                    password=form.cleaned_data['password1'],
+                                    )
+            login(request, new_user)
             return redirect('index')
     else:
         form = UserRegisterForm()
