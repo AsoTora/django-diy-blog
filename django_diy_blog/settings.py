@@ -15,7 +15,8 @@ import os
 
 # Build paths inside the project like this: BASE_DIR /'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -23,16 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'u4dmr-4j6pb92jjv=phmvus%4*ld#jh06xa&fv)+$w$^_a8gu5'
 import os
+
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'u4dmr-4j6pb92jjv=phmvus%4*ld#jh06xa&fv)+$w$^_a8gu5')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+# DEBUG = True
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', True))
 
-ALLOWED_HOSTS = []
 # Set hosts to allow any app on Heroku and the local testing URL
-ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
-
+ALLOWED_HOSTS = ['*', '127.0.0.1']
 
 # Application definition
 
@@ -43,8 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #Add config for Blog application
-    'blog.apps.BlogConfig', 
+    # Add configs for applications
+    'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
+    # fonts
+    'fontawesome-free',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +67,9 @@ ROOT_URLCONF = 'django_diy_blog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(BASE_DIR, 'templates/blog'),
+                 os.path.join(BASE_DIR, 'static')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,7 +84,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_diy_blog.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
@@ -88,7 +93,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -108,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -122,20 +125,30 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
+
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 # The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'blog/static')
 # The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
 
 
 # Static file serving.
 # http://whitenoise.evans.io/en/stable/django.html#django-middleware
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, "static"),
+# )
+
+# crispy
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# stuff
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'

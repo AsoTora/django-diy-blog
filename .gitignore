@@ -93,3 +93,8 @@ ENV/
 # Spyder project settings
 .spyderproject
 
+# other
+static_back
+*/migrations
+blog/static/fontawesome_free
+blog/static/admin/

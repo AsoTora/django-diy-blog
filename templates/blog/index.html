@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Kursach Blog HomePage</h1>
+
+    <p>Welcome to <em>Kursach Blog</em>, a basic Django blogging website developed as an assessment task for the BSUIR
+    </p>
+
+    <h2>Yeah, I am really bad at web design..</h2>
+    <p>Here is the picture though!</p>
+
+    <div>
+        {% load static %}
+        <img src="{% static "images/main.webp" %}" alt="My image" style="height:70%; width: 70%"/>
+    </div>
+
+{% endblock %}

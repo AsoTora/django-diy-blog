@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="">
+            <div class="media-body">
+                <h1 class="account-heading"> {{ blogger }}</h1>
+                <p class="text-secondary">{{ blogger.bio }}</p>
+            </div>
+        </div>
+    </div>
+
+    {% if blog_list %}
+        <h1>Blogs list</h1>
+        <ul>
+            {% for blog in blog_list %}
+                <li>
+                    <a href="{{ blog.get_absolute_url }}">{{ blog.name }}</a> ({{ blog.post_date }})</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>This blogger hasn't posted anything yet.</p>
+    {% endif %}
+{% endblock %}
+
+
