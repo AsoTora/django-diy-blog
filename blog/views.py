@@ -162,3 +162,34 @@ class BlogCommentCreate(LoginRequiredMixin, CreateView):
         After posting comment return to associated blog.
         """
         return reverse('blog-detail', kwargs={'pk': self.kwargs['pk'], })
+
+
+from django.conf import settings
+from django.http import Http404
+from .utils import *
+
+
+def debug_random_populate(request):
+    """
+    create mock data
+    """
+    if not settings.DEBUG:
+        raise Http404
+
+    try:
+        user = User.objects.filter(username='John Testing').first()
+    except User.DoesNotExist:
+        user = User(username='John Testing', email='JohnTesting@gmail.com', password=12345)
+        user.save(force_insert=False)
+
+    for i in range(1, 5):
+        Blog.objects.get_or_create(
+            name=random_name(),
+            description=random_descr(),
+            author=BlogAuthor.objects.filter(user_id=user.id).first()
+        )
+
+    return render(
+        request,
+        'index.html',
+    )

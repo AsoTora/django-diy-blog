@@ -1,21 +1,22 @@
 {% extends "base_generic.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-    <h1>All bloggers</h1>
-
+    <h1>Our bloggers</h1>
     {% if blogauthor_list %}
-    <ul>
-
-      {% for author in blogauthor_list %}
-      <li>
-        <a href="{% url 'blogs-by-author' author.pk %}">{{ author }}</a>
-      </li>
-      {% endfor %}
-
-    </ul>
-
+        {% for author in blogauthor_list %}
+            <div class="content-section">
+                <div class="media">
+                    <div class="media-body">
+                        <a class="mr-2" href="{% url 'blogs-by-author' author.user_id %}">{{ author }} </a>
+                        <p class="text-secondary">{{ author.user_id.email }}</p>
+                        <p class="text-secondary"> {{ author.bio }} </p>
+                    </div>
+                </div>
+                <img class="rounded-circle account-img" src="{{ author.image.url }}" alt="">
+            </div>
+        {% endfor %}
     {% else %}
-      <p>There are no bloggers yet.</p>
-    {% endif %}       
-{% endblock %}
-
+        <p>There are no bloggers yet.</p>
+    {% endif %}
+{% endblock content %}

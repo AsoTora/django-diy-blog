@@ -5,11 +5,11 @@
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-                <h1>Post your comment for: "<i><a href="{% url 'blog-detail' blog.pk %}"></a>{{ blog.name }}</i> "</h1>
-                {{form|crispy}}
+                <h1>Sure you want to delete blogpost <i>'{{ object }}'</i> ?</h1>
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Submit</button>
+                <button class="btn btn-outline-danger" type="submit">Delete</button>
+                <a class="btn btn-outline-secondary" href="{% url 'blog-detail' object.id %}">Cancel</a>
             </div>
         </form>
     </div>

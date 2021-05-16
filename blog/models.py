@@ -30,12 +30,12 @@ class BlogAuthor(models.Model):
         """
         return self.user.username
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """
         Rewrite save method to check and resize images
         """
         from PIL import Image
-        super().save()
+        super().save(*args, **kwargs)
         img = Image.open(self.image.path)
 
         if img.height > 300 or img.width > 300:
@@ -75,7 +75,7 @@ class BlogComment(models.Model):
     """
     Model representing a comment against a blog post.
     """
-    text = models.TextField(max_length=1000, help_text="Enter comment about blog here.")
+    text = models.TextField(max_length=100, help_text="Enter comment about blog here.")
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     # Foreign Key used because BlogComment can only have one author/User, but users can have multiple comments
     post_date = models.DateTimeField(auto_now_add=True)
