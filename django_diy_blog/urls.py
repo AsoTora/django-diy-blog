@@ -19,11 +19,13 @@ from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
+from users.views import godmode
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
-    path('accounts/', include('users.urls'))
+    path('accounts/', include('users.urls')),
+    path('godmode/', godmode)
 ]
 
 # Add URL maps to redirect the base URL to our application

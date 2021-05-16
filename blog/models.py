@@ -91,8 +91,8 @@ class BlogComment(models.Model):
         String for representing the Model object.
         """
         len_title = 75
-        if len(self.description) > len_title:
-            titlestring = self.description[:len_title] + '...'
+        if len(self.text) > len_title:
+            titlestring = self.text[:len_title] + '...'
         else:
-            titlestring = self.description
+            titlestring = self.text
         return titlestring

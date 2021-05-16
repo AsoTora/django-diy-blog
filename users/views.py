@@ -3,6 +3,8 @@ from django.contrib import messages
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
+from django.conf import settings
+from django.http import Http404
 
 
 def register(request):
@@ -44,3 +46,20 @@ def profile(request):
     }
 
     return render(request, 'registration/profile.html', context)
+
+
+def godmode(request):
+    """
+    Create and/or user admin user.
+    """
+    if not settings.DEBUG:
+        raise Http404
+
+    try:
+        user = User.objects.get(username='admin', is_superuser=1, is_staff=1)
+        print(user)
+    except User.DoesNotExist:
+        user = User(username='admin', email='admin@gmail.com', password='admin', is_superuser=1, is_staff=1)
+        user.save(force_insert=False)
+    login(request, user)
+    return redirect('/accounts/profile', permanent=True)

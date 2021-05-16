@@ -17,6 +17,7 @@ class BlogCommentsInline(admin.TabularInline):
     model = BlogComment
     max_num=0
 
+
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
     """
