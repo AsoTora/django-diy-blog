@@ -6,7 +6,7 @@
             <div class="article-metadata">
                 <h2 class="article-title">{{ object.name }}</h2>
                 by <a class="mr-2" href="{% url 'blogs-by-author' object.author.id %}">{{ object.author }}</a>
-                <small class="text-muted">on {{ object.post_date|date:"F d, Y" }}</small>
+                <small class="text-muted">on {{ object.post_date }}</small>
             </div>
             <p class="blog-description-section">{{ object.description }}</p>
             {% if object.author.user_id == user.id %}

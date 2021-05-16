@@ -5,6 +5,7 @@ from django.db import models
 from datetime import date
 from django.urls import reverse  # Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User  # Blog author or commenter
+from django.utils import timezone
 
 
 class BlogAuthor(models.Model):
@@ -50,7 +51,8 @@ class Blog(models.Model):
     """
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=2000, help_text="Enter you blog text here.")
-    post_date = models.DateField(default=date.today)
+    post_date = models.DateTimeField(default=timezone.now)
+    # post_date = models.DateField(default=date.today)
 
     # Foreign Key used because Blog can only have one author/User, but bloggsers can have multiple blog posts.
     author = models.ForeignKey(BlogAuthor, on_delete=models.SET_NULL, null=True)

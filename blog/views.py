@@ -177,8 +177,9 @@ def debug_random_populate(request):
         raise Http404
 
     try:
-        user = User.objects.filter(username='John Testing').first()
+        user = User.objects.get(username='John Testing')
     except User.DoesNotExist:
+        print('hello')
         user = User(username='John Testing', email='JohnTesting@gmail.com', password=12345)
         user.save(force_insert=False)
 
