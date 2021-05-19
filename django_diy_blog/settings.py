@@ -87,23 +87,23 @@ WSGI_APPLICATION = 'django_diy_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 #
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-# #
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("POSTGRES_DB") or "kursach_blog",
-        "USER": os.getenv("POSTGRES_USER") or "postgres",
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD") or "postgres",
-        "HOST": os.getenv("POSTGRES_HOST") or "localhost",
-        "PORT": os.getenv("POSTGRES_PORT") or 5432,
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+#
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": os.getenv("POSTGRES_DB") or "kursach_blog",
+#         "USER": os.getenv("POSTGRES_USER") or "postgres",
+#         "PASSWORD": os.getenv("POSTGRES_PASSWORD") or "postgres",
+#         "HOST": os.getenv("POSTGRES_HOST") or "localhost",
+#         "PORT": os.getenv("POSTGRES_PORT") or 5432,
+#     }
+# }
 
 
 # Password validation
@@ -164,3 +164,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # stuff
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
+
+# email sending
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # cli
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
